@@ -1,0 +1,6 @@
+
+# dont inclue the __pycache__ files
+*/__pycache__/*
+
+# dont inclue the venv folder files
+venv/*
