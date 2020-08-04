@@ -1,5 +1,7 @@
 
 
-export FLASK_APP=aveti_api.py 
-export FLASK_ENV=development 
-flask run
+# export FLASK_APP=aveti_api.py 
+# export FLASK_ENV=development 
+# flask run
+
+npx nodemon server.js 

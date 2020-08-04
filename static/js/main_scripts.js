@@ -10,32 +10,54 @@ import {
   drawPieChart
 } from './pie_chart.js';
 
+
+var socket = io({transports: ['websocket']});
+socket.on('connect', function() {
+    socket.emit('event1', {data: 'I\'m connected!'});
+});
+
+socket.addEventListener('message', function (event) {
+  console.log('Message from server ', event);
+});
+
+socket.addEventListener('qnaevent', function (event) {
+  console.log('Event from server ', event);
+  if(event.status == 1) $("#question_ready").show();
+});
+
+$('#aveti_ready_question').click(function () {
+  socket.emit('qnaevent', { "status" : 1});
+})
+
 $("#aveti_activate_question").click(function () {
-  fetch('/activate_question', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(""),
-    })
-    .then(response => {
-      recreate_questions_barchart();
-      start_question_status_chart();
-      start_student_status_chart();
-    });
+  socket.emit('qnaevent', { "status" : 2});
+  // fetch('/activate_question', {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(""),
+  //   })
+  //   .then(response => {
+  //     recreate_questions_barchart();
+  //     start_question_status_chart();
+  //     start_student_status_chart();
+  //   });
 })
 
 
+
 $("#aveti_deactivate_question").click(function () {
-  fetch('/activate_question', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(""),
-    })
-    .then(response => {
-    });
+  socket.emit('qnaevent', { "status" : 4});
+  // fetch('/activate_question', {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(""),
+  //   })
+  //   .then(response => {
+  //   });
 })
 
 
@@ -85,6 +107,6 @@ var start_student_status_chart = function () {
   }, 1000);
 }
 
-start_student_status_chart()
-start_question_status_chart()
-drawPieChart();
+// start_student_status_chart()
+// start_question_status_chart()
+// drawPieChart();

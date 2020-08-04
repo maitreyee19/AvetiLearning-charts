@@ -1,0 +1,29 @@
+{
+  "name": "aveti",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maitreyee19/AvetiLearning-charts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maitreyee19/AvetiLearning-charts/issues"
+  },
+  "homepage": "https://github.com/maitreyee19/AvetiLearning-charts#readme",
+  "dependencies": {
+    "custom-env": "^2.0.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "ws": "^7.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
