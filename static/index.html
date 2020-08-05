@@ -17,7 +17,8 @@
     <div class="aveti_q_container">
         <div class="aveti_q_header">
             <h3>Question No: 2</h3>
-            Question URL :<input style="width: 60%;" type="text"></input>
+            Question URL :<input class="aveti_q_url" style="width: 60%;" type="text"/>
+            <button class="aveti_q_loadUrl">Load question</button>
         </div>
         <!-- Create a div where the graph will take place -->
         <div class="aveti_q_body">
@@ -34,9 +35,8 @@
             <div class="aveti_q_enabler">
                 <div class="aveti_q_details">
                     <p>Question details</p>
-                    <div class="aveti__active" id="question_active">
-                        <iframe src="http://localhost:3000/q2.html"
-                            title="question"></iframe></div>
+                    <div class="aveti_active" id="question_active">
+                        <iframe class="aveti_q_iframe" src="" title="question"></iframe></div>
                 </div>
                 <div class="aveti_q_actions">
                     <button id="aveti_ready_question">Question Ready</button>

@@ -37,7 +37,8 @@ $('#aveti_ready_question').click(function () {
 
 $("#aveti_activate_question").click(function () {
   socket.emit('qnaevent', {
-    "status": 2
+    "status": 2,
+    "question_link": $('.aveti_q_url').val()
   });
   // fetch('/activate_question', {
   //     method: 'PUT',
@@ -53,11 +54,13 @@ $("#aveti_activate_question").click(function () {
   //   });
 })
 
+$(".aveti_q_loadUrl").click(function () {
+  $(".aveti_q_iframe").attr('src', $('.aveti_q_url').val());
+})
 
 $("#aveti_deactivate_question").click(function () {
   socket.emit('qnaevent', {
     "status": 3,
-    "question_link": "http://localhost:3000/q2.html"
   });
 })
 $("#aveti_next_question").click(function () {
