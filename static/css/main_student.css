@@ -1,0 +1,16 @@
+.aveti_a_ready,
+.aveti_a_active,
+.aveti_a_result {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    border: solid gray 1px
+}
+
+.aveti_a_active,
+.aveti_a_ready,
+.aveti_a_result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

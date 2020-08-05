@@ -12,7 +12,7 @@ const server = http.Server(app);
 // const wss = new WebSocket.Server({ server });
 const wss = require('socket.io')(server);
 app.use(express.static('static'))
-app.use('/', express.static('static', { index: 'charts.html' }));
+app.use('/', express.static('static', { index: 'index.html' }));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({

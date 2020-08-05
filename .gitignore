@@ -7,3 +7,5 @@ venv/*
 
 # node related changes
 node_modules/**
+*/.DS_*
+**/*.zip

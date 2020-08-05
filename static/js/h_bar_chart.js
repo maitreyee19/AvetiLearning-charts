@@ -7,8 +7,8 @@ var margin = {
     bottom: 90,
     left: 40
   },
-  width = 460 - margin.left - margin.right,
-  height = 450 - margin.top - margin.bottom;
+  width = 230 - margin.left - margin.right,
+  height = 440 - margin.top - margin.bottom;
 
   var color = d3.scaleLinear().domain([1,10]).range(["green", "red"]);
 // append the svg object to the body of the page

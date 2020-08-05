@@ -1,0 +1,37 @@
+.aveti_q_container,
+.aveti_q_header,
+.aveti_q_body,
+.aveti_q_status,
+.aveti_q_enabler {
+    padding: 5px;
+    border: solid gray 1px
+}
+
+.aveti_q_container {
+    display: flex;
+    flex-direction: column;
+}
+
+.aveti_q_body {
+    display: flex;
+    flex-direction: row;
+}
+
+.aveti_q_status {
+    flex-grow: 2;
+}
+.aveti_q_enabler{
+    display: flex;
+    flex-direction:column;
+}
+.aveti_q_details{
+    flex-grow: 9;
+}
+
+.aveti_q_status_notactive{
+    min-height:650px;
+    min-width: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
