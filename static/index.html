@@ -21,7 +21,7 @@
         </div>
         <!-- Create a div where the graph will take place -->
         <div class="aveti_q_body">
-            <div  class="aveti_q_status">
+            <div class="aveti_q_status">
                 <div class="aveti_q_status_notactive"> No active question.</div>
                 <div style="display:none" class="aveti_q_charts">
                     <div id="questions_bar_chart"></div>
@@ -32,7 +32,12 @@
             </div>
 
             <div class="aveti_q_enabler">
-                <div class="aveti_q_details"> question details</div>
+                <div class="aveti_q_details">
+                    <p>Question details</p>
+                    <div class="aveti__active" id="question_active">
+                        <iframe src="http://localhost:3000/q2.html"
+                            title="question"></iframe></div>
+                </div>
                 <div class="aveti_q_actions">
                     <button id="aveti_ready_question">Question Ready</button>
                     <button id="aveti_activate_question">Activate Question</button>

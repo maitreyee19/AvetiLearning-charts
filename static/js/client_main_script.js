@@ -32,6 +32,7 @@ socket.addEventListener('qnaevent', function (event) {
         $("#question_ready").hide();
         $("#question_active").show();
         $("#result_status").hide();
+        $("#aveti_q_iframe").attr('src', event.question_link);
     }
     if (event.status == 3) {
         $("#question_ready").hide();
