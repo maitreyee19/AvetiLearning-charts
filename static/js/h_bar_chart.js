@@ -20,19 +20,19 @@ export let studends_bar_chart_svg = d3.select("#students_bar_chart")
   .attr("transform",
     "translate(" + margin.left + "," + margin.top + ")");
 
-// /**
-//  * recreate the student bar chart after update the active question
-//  */
-// export let recreate_students_barchart = function () {
-//   $("#students_bar_chart").empty();
-//   questions_bar_chart_svg = d3.select("#students_bar_chart")
-//     .append("svg")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform",
-//       "translate(" + margin.left + "," + margin.top + ")");
-// }
+/**
+ * recreate the student bar chart after update the active question
+ */
+export let recreate_students_barchart = function () {
+  $("#students_bar_chart").empty();
+  questions_bar_chart_svg = d3.select("#students_bar_chart")
+    .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform",
+      "translate(" + margin.left + "," + margin.top + ")");
+}
 
 /**
  * draw the bar chart based on the svg created by the d3
@@ -104,7 +104,7 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
  */
 export let update_h_bar_chart = function (questions_bar_chart_svg ,data) {
   // Add Y axis
-  var y = d3.scaleLinear()
+  var x = d3.scaleLinear()
     .domain([0, 13000])
     .range([height, 0]);
 

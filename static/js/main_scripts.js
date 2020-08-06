@@ -40,7 +40,11 @@ $("#aveti_activate_question").click(function () {
     "status": 2,
     "question_link": $('.aveti_q_url').val()
   });
-  // fetch('/activate_question', {
+  $(".aveti_q_status_notactive").hide();
+  $(".aveti_q_charts").show();
+  recreate_questions_barchart();
+  start_question_status_chart();
+  // fetch('/qna/activate_question', {
   //     method: 'PUT',
   //     headers: {
   //       'Content-Type': 'application/json',
@@ -62,6 +66,7 @@ $("#aveti_deactivate_question").click(function () {
   socket.emit('qnaevent', {
     "status": 3,
   });
+  start_student_status_chart();
 })
 $("#aveti_next_question").click(function () {
   socket.emit('qnaevent', {
@@ -74,11 +79,11 @@ $("#aveti_next_question").click(function () {
 var start_question_status_chart = function () {
   var x = 0;
   var intervalID = setInterval(function () {
-    fetch('/get_question_stats')
+    fetch('/qna/get_question_stats')
       .then(response => response.json())
       .then(data => {
-        if (x == 0) drawBarChart(questions_bar_chart_svg, data.response);
-        update_bar_chart(questions_bar_chart_svg, data.response);
+        if (x == 0) drawBarChart(questions_bar_chart_svg, data);
+        update_bar_chart(questions_bar_chart_svg, data);
         if (++x === 5) {
           window.clearInterval(intervalID);
         }
@@ -95,14 +100,13 @@ var start_question_status_chart = function () {
 
 var start_student_status_chart = function () {
   var x = 0;
-  var intervalID = setInterval(function () {
-    fetch('/get_student_stats')
+  // var intervalID = setInterval(function () {
+    fetch('/qna/get_student_stats')
       .then(response => response.json())
-      .then(data => {
-        var student_data = data.response;
+      .then(student_data => {
         student_data.sort((a, b) => (a.Value > b.Value) ? -1 : 1)
         if (x == 0) draw_h_bar_chart(studends_bar_chart_svg, student_data);
-        // update_h_bar_chart(studends_bar_chart_svg ,data.response);
+        // update_h_bar_chart(studends_bar_chart_svg, student_data);
         if (++x === 5) {
           window.clearInterval(intervalID);
         }
@@ -113,7 +117,7 @@ var start_student_status_chart = function () {
           window.clearInterval(intervalID);
         }
       });
-  }, 1000);
+  // }, 1000);
 }
 
 // start_student_status_chart()
