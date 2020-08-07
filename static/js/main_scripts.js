@@ -10,7 +10,7 @@ import {
   studends_bar_chart_svg
 } from './h_bar_chart.js'
 
-
+var nextQid = "";
 var socket = io({
   transports: ['websocket']
 });
@@ -20,14 +20,17 @@ socket.on('connect', function () {
   });
 });
 
-
+$('#aveti_next_question').click(function () {
+  nextQid = $('#aveit_input_q').val()
+})
 $('#aveti_ready_question').click(function () {
   socket.emit('qnaevent', {
     "status": 1,
-    "questionID" : "question_2",
+    "questionID" : nextQid,
     "answer" : "Tea"
   });
 })
+
 
 $("#aveti_activate_question").click(function () {
   socket.emit('qnaevent', {

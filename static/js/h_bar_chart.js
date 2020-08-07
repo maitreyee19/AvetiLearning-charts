@@ -50,7 +50,7 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
 
   // Add Y axis
   var x = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 100])
     .range([0, width]);
 
 //   questions_bar_chart_svg.append("g")
