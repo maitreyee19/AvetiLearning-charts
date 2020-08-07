@@ -20,18 +20,12 @@ socket.on('connect', function () {
   });
 });
 
-socket.addEventListener('message', function (event) {
-  console.log('Message from server ', event);
-});
-
-socket.addEventListener('qnaevent', function (event) {
-  console.log('Event from server ', event);
-  if (event.status == 1) $("#question_ready").show();
-});
 
 $('#aveti_ready_question').click(function () {
   socket.emit('qnaevent', {
-    "status": 1
+    "status": 1,
+    "questionID" : "question_2",
+    "answer" : "Tea"
   });
 })
 
@@ -44,18 +38,6 @@ $("#aveti_activate_question").click(function () {
   $(".aveti_q_charts").show();
   recreate_questions_barchart();
   start_question_status_chart();
-  // fetch('/qna/activate_question', {
-  //     method: 'PUT',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(""),
-  //   })
-  //   .then(response => {
-  //     recreate_questions_barchart();
-  //     start_question_status_chart();
-  //     start_student_status_chart();
-  //   });
 })
 
 $(".aveti_q_loadUrl").click(function () {

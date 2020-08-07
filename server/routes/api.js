@@ -32,6 +32,12 @@ router.get('/get_student_stats', (req, res) => {
 })
 
 router.post('/answer', (req, res) => {
-    console.log(" answer submitted");
+    console.log(stats);
+    if (!res.headersSent) {
+        res.writeHead(200, {
+            'content-type': 'application/json'
+        });
+        res.end(JSON.stringify(stats));
+    }
 });
 module.exports = router;

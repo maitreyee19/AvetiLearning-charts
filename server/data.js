@@ -64,39 +64,39 @@ var active_question_id = 0
 
 var student_data = [{
         "Answer": "punu",
-        "Value": 1030
+        "Value": 80
     },
     {
         "Answer": "munu",
-        "Value": 830
+        "Value": 70
     },
     {
         "Answer": "tanu",
-        "Value": 650
+        "Value": 60
     },
     {
         "Answer": "chanu",
-        "Value": 450
+        "Value": 50
     },
     {
         "Answer": "ronu",
-        "Value": 380
+        "Value": 38
     },
     {
         "Answer": "banu",
-        "Value": 670
+        "Value": 67
     },
     {
         "Answer": "manu",
-        "Value": 440
+        "Value": 44
     },
     {
         "Answer": "sonu",
-        "Value": 360
+        "Value": 36
     },
     {
         "Answer": "kunu",
-        "Value": 220
+        "Value": 22
     }
 ]
 
@@ -121,10 +121,10 @@ exports.activate_question = function() {
 }
 
 exports.get_student_status = function() {
-    student_data[0]["Value"] = student_data[0]["Value"] + 1000
-    student_data[1]["Value"] = student_data[1]["Value"] + 200
-    student_data[2]["Value"] = student_data[2]["Value"] + 700
-    student_data[3]["Value"] = student_data[3]["Value"] + 300
+    student_data[0]["Value"] = student_data[0]["Value"] + 10
+    student_data[1]["Value"] = student_data[1]["Value"] + 2
+    student_data[2]["Value"] = student_data[2]["Value"] + 7
+    student_data[3]["Value"] = student_data[3]["Value"] + 3
     return (student_data)
 }
 

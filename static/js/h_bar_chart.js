@@ -7,8 +7,8 @@ var margin = {
     bottom: 90,
     left: 40
   },
-  width = 230 - margin.left - margin.right,
-  height = 440 - margin.top - margin.bottom;
+  width = 350 - margin.left - margin.right,
+  height = 500 - margin.top - margin.bottom;
 
   var color = d3.scaleLinear().domain([1,10]).range(["green", "red"]);
 // append the svg object to the body of the page
@@ -23,7 +23,7 @@ export let studends_bar_chart_svg = d3.select("#students_bar_chart")
 /**
  * recreate the student bar chart after update the active question
  */
-export let recreate_students_barchart = function () {
+ export let recreate_students_barchart = function () {
   $("#students_bar_chart").empty();
   questions_bar_chart_svg = d3.select("#students_bar_chart")
     .append("svg")
@@ -104,8 +104,9 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
  */
 export let update_h_bar_chart = function (questions_bar_chart_svg ,data) {
   // Add Y axis
+
   var x = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 100])
     .range([height, 0]);
 
   // Animation
