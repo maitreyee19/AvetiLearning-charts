@@ -51,7 +51,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 10])
     .range([height, 0]);
 
   questions_bar_chart_svg.append("g")
@@ -109,7 +109,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
 export let update_bar_chart = function (questions_bar_chart_svg ,data) {
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 10])
     .range([height, 0]);
 
   // Animation
@@ -138,7 +138,7 @@ export let update_bar_chart = function (questions_bar_chart_svg ,data) {
 export let update_bar_label = function (questions_bar_chart_svg ,data) {
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 13000])
+    .domain([0, 100])
     .range([height, 0]);
 
   // Animation

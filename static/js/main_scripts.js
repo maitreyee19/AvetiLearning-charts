@@ -7,6 +7,7 @@ import {
 import {
   draw_h_bar_chart,
   update_h_bar_chart,
+  recreate_students_barchart,
   studends_bar_chart_svg
 } from './h_bar_chart.js'
 
@@ -24,7 +25,7 @@ $('#aveti_next_question').click(function () {
   nextQid = $('#aveit_input_q').val()
 })
 $('#aveti_ready_question').click(function () {
-  socket.emit('qnaevent', {
+  socket.emit('qevent', {
     "status": 1,
     "questionID" : nextQid,
     "answer" : "Tea"
@@ -33,13 +34,14 @@ $('#aveti_ready_question').click(function () {
 
 
 $("#aveti_activate_question").click(function () {
-  socket.emit('qnaevent', {
+  socket.emit('qevent', {
     "status": 2,
     "question_link": $('.aveti_q_url').val()
   });
   $(".aveti_q_status_notactive").hide();
   $(".aveti_q_charts").show();
   recreate_questions_barchart();
+  recreate_students_barchart();
   start_question_status_chart();
 })
 
@@ -48,28 +50,27 @@ $(".aveti_q_loadUrl").click(function () {
 })
 
 $("#aveti_deactivate_question").click(function () {
-  socket.emit('qnaevent', {
+  socket.emit('qevent', {
     "status": 3,
   });
   start_student_status_chart();
 })
 $("#aveti_next_question").click(function () {
-  socket.emit('qnaevent', {
+  socket.emit('qevent', {
     "status": 4
   });
 })
 
 
-
 var start_question_status_chart = function () {
-  var x = 0;
   var intervalID = setInterval(function () {
+    var x = 0;
     fetch('/qna/get_question_stats')
       .then(response => response.json())
       .then(data => {
         if (x == 0) drawBarChart(questions_bar_chart_svg, data);
         update_bar_chart(questions_bar_chart_svg, data);
-        if (++x === 5) {
+        if (++x >= 10) {
           window.clearInterval(intervalID);
         }
       })
@@ -79,7 +80,7 @@ var start_question_status_chart = function () {
           window.clearInterval(intervalID);
         }
       });
-  }, 1000);
+  }, 10000);
 }
 
 

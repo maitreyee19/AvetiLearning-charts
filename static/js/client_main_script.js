@@ -33,7 +33,7 @@ $(".aveti_q_iframe").contents().find('button').on('click', ()=> {
 }
 
 
-socket.addEventListener('qnaevent', function (event) {
+socket.addEventListener('qevent', function (event) {
     console.log('Event from server ', event);
     if (event.status == 1) {
         $("#question_ready").show();

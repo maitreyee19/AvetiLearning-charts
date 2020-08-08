@@ -8,7 +8,7 @@ router.post('/test', (req, res) => {
 });
 
 router.get('/get_question_stats', (req, res) => {
-    console.log(" Got test call");
+    // console.log(" Got test call");
     var stats = data.get_question_status();
     // console.log(stats);
     if (!res.headersSent) {
@@ -20,7 +20,7 @@ router.get('/get_question_stats', (req, res) => {
 })
 
 router.get('/get_student_stats', (req, res) => {
-    console.log(" Got test call");
+    // console.log(" Got test call");
     var stats = data.get_student_status();
     // console.log(stats);
     if (!res.headersSent) {

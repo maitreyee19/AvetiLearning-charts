@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
+const dataService = require('./server/data.js');
 // const WebSocket = require('ws');
 
 // Get our API routes
@@ -41,9 +42,14 @@ wss.on('connection', (socket) => {
         console.log('received: %s', message);
         ws.send(`Hello, you sent -> ${message}`);
     }); 
-    socket.on('qnaevent', (eventData) =>{
+    socket.on('qevent', (eventData) =>{
         console.log("eventData" + JSON.stringify(eventData))
-        socket.broadcast.emit('qnaevent',eventData);
+        socket.broadcast.emit('qevent',eventData);
+    })
+    socket.on('aevent', (eventData) =>{
+        console.log("eventData" + JSON.stringify(eventData));
+
+        dataService.update_student_data(eventData);
     })
     socket.on('disconnect', () => {
         console.log('user disconnected');

@@ -25,7 +25,7 @@ export let studends_bar_chart_svg = d3.select("#students_bar_chart")
  */
  export let recreate_students_barchart = function () {
   $("#students_bar_chart").empty();
-  questions_bar_chart_svg = d3.select("#students_bar_chart")
+  studends_bar_chart_svg = d3.select("#students_bar_chart")
     .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -44,7 +44,7 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
   var y = d3.scaleBand()
     .range([0, width])
     .domain(data.map(function (d) {
-      return d.Answer;
+      return d.name;
     }))
     .padding(0.2);
 
@@ -69,7 +69,7 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
     .enter()
     .append("rect")
     .attr("y", function (d) {
-      return y(d.Answer);
+      return y(d.name);
     })
     .attr("height", y.bandwidth())
     .attr("fill", function(d, i) {
@@ -87,7 +87,7 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
     .duration(800)
     .attr("x", 0)
     .attr("width", function (d) {
-      return x(d.Value);
+      return x(d.points);
     })
     .delay(function (d, i) {
       // console.log(i);
@@ -116,7 +116,7 @@ export let update_h_bar_chart = function (questions_bar_chart_svg ,data) {
     .duration(800)
     .attr("x", 0)
     .attr("width", function (d) {
-      return x(d.Value);
+      return x(d.points);
     })
     .delay(function (d, i) {
       // console.log(i);
