@@ -80,7 +80,7 @@ var start_question_status_chart = function () {
           window.clearInterval(intervalID);
         }
       });
-  }, 10000);
+  }, 1000);
 }
 
 
