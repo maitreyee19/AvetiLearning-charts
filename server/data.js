@@ -1,20 +1,15 @@
 var active_question_data = [
-    {
-        "Answer": "Milk",
-        "Value": 0
-    },
-    {
-        "Answer": "Coffee",
-        "Value": 0
-    }, {
-        "Answer": "Tea",
-        "Value": 0
-    }
+    
 
 ]
 var student_data = [
 ]
 
+exports.reset_data =function(){
+    student_data=[];
+    active_question_data =[];
+    console.log("data cleaned");
+}
 
 exports.get_question_status = function () {
     return (active_question_data)

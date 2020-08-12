@@ -6,6 +6,16 @@ const router = express.Router();
 router.post('/test', (req, res) => {
     console.log(" Got test call");
 });
+router.get('/reset_data',(req, res) => {
+    data.reset_data();
+    if (!res.headersSent) {
+        res.writeHead(200, {
+            'content-type': 'application/json'
+        });
+        res.end(JSON.stringify('success'));
+    }
+})
+
 
 router.get('/get_question_stats', (req, res) => {
     // console.log(" Got test call");

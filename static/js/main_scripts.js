@@ -46,7 +46,14 @@ $("#aveti_activate_question").click(function () {
 })
 
 $(".aveti_q_loadUrl").click(function () {
-  $(".aveti_q_iframe").attr('src', $('.aveti_q_url').val());
+
+    fetch('/qna/reset_data')
+      .then(response => response.json())
+        .then(data => {
+          start_question_status_chart();
+          start_student_status_chart();
+        })
+  
 })
 
 $("#aveti_deactivate_question").click(function () {

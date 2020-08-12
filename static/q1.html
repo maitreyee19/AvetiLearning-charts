@@ -38,14 +38,14 @@
             "question_3": "Tea",
             "question_4": "Tea"
         };
-        var socket = io.connect('http://aveti-env.eba-hvgqzgcy.us-west-1.elasticbeanstalk.com', {
-            reconnect: true,
+        // var socket = io.connect('http://aveti-env.eba-hvgqzgcy.us-west-1.elasticbeanstalk.com', {
+            // reconnect: true,
+            // transports: ['websocket']
+        // });
+        var socket = io.connect('http://localhost:3000', {
+        reconnect: true,
             transports: ['websocket']
         });
-        // var socket = io.connect('http://localhost:3000', {
-        // reconnect: true,
-        //     transports: ['websocket']
-        // });
         socket.on('connect', function () {
             socket.emit('event1', {
                 data: 'I\'m connected!'
@@ -120,11 +120,11 @@
                 Best of Luck !!
             </div>
             <div class="aveti_question">
-                <h2>Question 1</h2>
+                <h2>What is the capital of India</h2>
                 <ol>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
+                    <li>Mumbai</li>
+                    <li>New Delhi</li>
+                    <li>Kolkata</li>
                 </ol>
                 <input class="aveit_input_a" type="text" />
                 <button onclick="updateResult()">Submit</button>
@@ -142,11 +142,11 @@
                 Best of Luck !!
             </div>
             <div class="aveti_question">
-                <h2>Question 2</h2>
+                <h2>Where is Eiffel Tower?</h2>
                 <ol>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
+                    <li>Germany</li>
+                    <li>USA</li>
+                    <li>France</li>
                 </ol>
                 <input class="aveit_input_a" type="text" />
                 <button onclick="updateResult()">Submit</button>
@@ -167,11 +167,11 @@
                 Best of Luck !!
             </div>
             <div class="aveti_question">
-                <h2>Question 3</h2>
+                <h2>How many continents are there in world? </h2>
                 <ol>
-                    <li>Coffee</li>
-                    <li>Tea</li>
-                    <li>Milk</li>
+                    <li>5</li>
+                    <li>6</li>
+                    <li>7</li>
                 </ol>
                 <input class="aveit_input_a" type="text" />
                 <button onclick="updateResult()">Submit</button>
