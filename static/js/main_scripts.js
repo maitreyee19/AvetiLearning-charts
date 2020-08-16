@@ -36,6 +36,7 @@ $('#aveti_ready_question').click(function () {
 $("#aveti_activate_question").click(function () {
   socket.emit('qevent', {
     "status": 2,
+    "questionID" : nextQid,
     "question_link": $('.aveti_q_url').val()
   });
   $(".aveti_q_status_notactive").hide();
@@ -70,8 +71,8 @@ $("#aveti_next_question").click(function () {
 
 
 var start_question_status_chart = function () {
+  var x = 0;
   var intervalID = setInterval(function () {
-    var x = 0;
     fetch('/qna/get_question_stats')
       .then(response => response.json())
       .then(data => {
