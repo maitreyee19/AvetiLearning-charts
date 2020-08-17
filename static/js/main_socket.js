@@ -1,8 +1,14 @@
-console.log("Hello World")
-var activeQ = "",
-    studentName = "",
-    studentNumber = "",
-    activeResult = false;
+
+/**
+ * By: Maitreyee
+ * Sudent websocket listens to "qevents" and publishes "aevents"
+ * qevents : - Status meaning  
+ * 2- question ready
+ * 3- question active 
+ * 4- question deactive
+ * 1- clear old data
+ * 
+ */
 
 // var socket = io.connect('http://aveti-env.eba-hvgqzgcy.us-west-1.elasticbeanstalk.com', {
 // reconnect: true,
@@ -21,50 +27,24 @@ socket.on('connect', function () {
 socket.addEventListener('qevent', function (event) {
     console.log('Event from server ', event);
     if (event.status == 1) {
-        activeQ = event.questionID
-        $('#' + activeQ).addClass("aveti_a_active");
-        $('#' + activeQ).removeClass("aveti_a_inactive");
-        $(".question_ready").show();
-        $(".aveti_question").hide();
-        $(".result_status").hide();
+        activeQ = event.questionID;
+        $('#question_ready').show();
     }
     if (event.status == 2) {
-        activeQ = event.questionID
-
+        activeQ = event.questionID;
+        $('#question_ready').hide();
+        $('#perseus-container').show();
+        $('#problem-and-answer').show();
+        $('#scorer').prop('disabled', false)
         initQ(activeQ);
-        $(".question_ready").hide();
-        $(".aveti_question").show();
-        $(".result_status").hide();
     }
     if (event.status == 3) {
-        $(".question_ready").hide();
-        $(".aveti_question").hide();
-        $(".result_status").show();
+        $('#perseus-container').hide();
+        $('#problem-and-answer').hide();
     }
     if (event.status == 4) {
-        $(".question_ready").hide();
-        $(".aveti_question").hide();
-        $(".result_status").hide();
-        $('#' + activeQ).addClass("aveti_a_inactive");
-        $('#' + activeQ).removeClass("aveti_a_active");
+        $('#perseus-container').hide();
+        $('#problem-and-answer').hide();
     }
 });
 
-function updateResult() {
-    var answer = $('#' + activeQ + " .aveit_input_a").val();
-    console.log(answer)
-    socket.emit('aevent', {
-        "status": 1,
-        "questionID": activeQ,
-        "answer": answer,
-        "student": studentName,
-        "points": 10
-    });
-}
-
-function keepStudentDetails() {
-    studentName = $('#aveit_input_name').val();
-    studentNumber = $('#aveit_input_number').val();
-    $('#aveit_fill_details').hide();
-    $('#aveit_show_details').text("Hello " + studentName);
-}

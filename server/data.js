@@ -1,14 +1,24 @@
 var active_question_data = [
-    
+
 
 ]
 var student_data = [
 ]
 
-exports.reset_data =function(){
-    student_data=[];
-    active_question_data =[];
+exports.reset_data = function () {
+    student_data = [];
+    active_question_data = [
+        { Answer: "correct", Value: 0 },
+        { Answer: "wrong", Value: 0 }
+    ];
     console.log("data cleaned");
+}
+
+exports.reset_question_data = function () {
+
+    active_question_data = [{ Answer: "correct", Value: 0 },
+    { Answer: "wrong", Value: 0 }];
+    console.log("Question data cleaned");
 }
 
 exports.get_question_status = function () {
@@ -26,7 +36,10 @@ exports.activate_question = function () {
 }
 
 exports.get_student_status = function () {
-    return (student_data)
+    student_data.sort(function (a, b) {
+        return b - a;
+    })
+    return (student_data.slice(0, 5))
 }
 
 exports.update_student_data = function (eventData) {
@@ -35,7 +48,7 @@ exports.update_student_data = function (eventData) {
         return answer.Answer === eventData.answer;
     })
     if (answer) {
-        answer.Value = answer.Value+ 1;
+        answer.Value = answer.Value + 1;
     } else {
         active_question_data.push(
             {
@@ -49,7 +62,7 @@ exports.update_student_data = function (eventData) {
         return student.name === eventData.student;
     })
     if (student) {
-        student.points = student.points +eventData.points ;
+        student.points = student.points + eventData.points;
     } else {
         student_data.push(
             {

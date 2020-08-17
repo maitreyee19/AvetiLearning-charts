@@ -12,6 +12,7 @@ import {
 } from './h_bar_chart.js'
 
 var nextQid = "";
+var question_active = false;
 var socket = io({
   transports: ['websocket']
 });
@@ -34,6 +35,7 @@ $('#aveti_ready_question').click(function () {
 
 
 $("#aveti_activate_question").click(function () {
+  question_active = true;
   socket.emit('qevent', {
     "status": 2,
     "questionID" : nextQid,
@@ -58,12 +60,21 @@ $(".aveti_q_loadUrl").click(function () {
 })
 
 $("#aveti_deactivate_question").click(function () {
+  question_active = false;
   socket.emit('qevent', {
     "status": 3,
   });
   start_student_status_chart();
 })
-$("#aveti_next_question").click(function () {
+$("#aveti_next_question").click(function () {  
+  fetch('/qna/reset_question_data')
+      .then(response => response.json())
+        .then(data => {
+          drawBarChart(questions_bar_chart_svg, []);
+          // start_student_status_chart();
+        })
+
+
   socket.emit('qevent', {
     "status": 4
   });
@@ -76,9 +87,13 @@ var start_question_status_chart = function () {
     fetch('/qna/get_question_stats')
       .then(response => response.json())
       .then(data => {
+        console.log(" x = "+ x);
+        console.log(" data = " + data);
         if (x == 0) drawBarChart(questions_bar_chart_svg, data);
-        update_bar_chart(questions_bar_chart_svg, data);
-        if (++x >= 10) {
+        else{
+          update_bar_chart(questions_bar_chart_svg, data)
+        };
+        if (++x >= 600 || question_active == false) {
           window.clearInterval(intervalID);
         }
       })

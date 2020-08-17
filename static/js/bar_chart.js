@@ -124,7 +124,7 @@ export let update_bar_chart = function (questions_bar_chart_svg ,data) {
       return height - y(d.Value);
     })
     .delay(function (d, i) {
-      // console.log(i);
+      console.log(i);
       return (i * 100)
     })
 }
