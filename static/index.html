@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <!DOCTYPE html>
+    <meta charset="utf-8">
+    <!-- Load d3.js -->
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div class="aveti_q_container">
+        <div class="aveti_q_header">
+            <!--<h3>Question No: 2</h3>-->
+            <!--Question URL :<input class="aveti_q_url" style="width: 60%;" type="text" />-->
+            <button class="aveti_q_loadUrl">reset session</button>
+        </div>
+        <!-- Create a div where the graph will take place -->
+        <div class="aveti_q_body">
+            <div class="aveti_q_status">
+                <div class="aveti_q_status_notactive"> No active question.</div>
+                <div style="display:none" class="aveti_q_charts">
+                    <div id="questions_bar_chart"></div>
+                    <h3>Student status</h3>
+                    <div id="students_bar_chart"></div>
+                    <!-- <div id="questions_pie_chart"></div> -->
+                </div>
+            </div>
+
+            <div class="aveti_q_enabler">
+                <div class="aveti_q_details">
+                    <p>Question details</p>
+                    <div class="aveti_active" id="question_active">
+                        <iframe class="aveti_q_iframe" src="" title="question"></iframe></div>
+                </div>
+                <div class="aveti_q_actions">
+                    <input id="aveit_input_q" type="text" />
+                    <button id="aveti_next_question">Question</button>
+                </div>
+                <div class="aveti_q_actions">
+                    <button id="aveti_ready_question">Question Ready</button>
+                    <button id="aveti_activate_question">Activate Question</button>
+                    <button id="aveti_deactivate_question">Deactivate Question</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script type="module" src="js/main_scripts.js"></script>
+</body>
+
+</html>

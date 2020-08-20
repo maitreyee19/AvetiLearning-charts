@@ -14,7 +14,7 @@
 // reconnect: true,
 // transports: ['websocket']
 // });
-var socket = io.connect('https://bhabanidas.com/', {
+var socket = io.connect('http://192.168.0.197:3000/', {
     reconnect: true,
     transports: ['websocket']
 });

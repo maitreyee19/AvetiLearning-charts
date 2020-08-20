@@ -36,6 +36,11 @@
     align-items: center; 
 }
 
+.aveti_q_charts{
+    justify-content: center;
+    padding-left: 50px;
+}
+
 .aveti_q_iframe{
     height: 90%;
     border-width: 0;
