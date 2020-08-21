@@ -1,7 +1,7 @@
 ## Overview
 The application provides realtime Question Answer session for live classes hosted from youtube.
 ## How to use
-### SetUp
+### Local SetUp
 #### 1. Clone the git repository
 ```
     git clone
@@ -30,4 +30,55 @@ The application provides realtime Question Answer session for live classes hoste
 1. Students need to put his/her name to participate in question Answer session if using for the 1st time . Otherwise it will pick from the local staorage
 1. When student gets the question they can fill out the answer and submit
 1. Student will get the feedback if the answer is right or not
+
+### EC2 setup
+  
+1. Take EC2 Ubuntu Server
+2. Make TCP port 80,443, 3000 open from 0.0.0.0:0
+ssh to EC2 instance from a Terminal and follow below steps
+    
+3. Install Node 
+``` 
+    cd Downloads
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+    . ~/.nvm/nvm.sh
+    nvm install node
+ ```
+4. Copy the git repository 
+
+```
+    mkdir QnA
+    cd QnA
+    git clone https://github.com/maitreyee19/AvetiLearning-charts.git
+    cd AvetiLearning-charts
+    npm install
+    npm start
+```
+
+Make sure you can access "ec2url:3000" 
+
+### Setup Apache reverse proxy 
+
+```
+    sudo apt-get install apache2
+    cd /etc/apache2/sites-available/
+    cp ~/QnA/AvetiLearning-charts/website.com.conf ~your_site~.conf
+```
+
+### setup certificate and ssl using letsencrypt
+```
+    sudo a2enmod proxy_http
+    sudo a2enmod proxy_wstunnel
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt install python-certbot-apache
+    sudo certbot --apache -d ~your_site~.com -d www.~your_site~.com
+    sudo certbot renew --dry-run
+    sudo systemctl restart apache2
+
+```
+
+Setup is completed.
+
+Now Go to https://~your_site~.com and you should see the administrator page... 
+
 
