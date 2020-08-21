@@ -4,13 +4,13 @@
 var margin = {
     top: 10,
     right: 30,
-    bottom: 90,
-    left: 40
+    bottom: 10,
+    left: 60
   },
   width = 350 - margin.left - margin.right,
-  height = 500 - margin.top - margin.bottom;
+  height = 300 - margin.top - margin.bottom;
 
-  var color = d3.scaleLinear().domain([1,10]).range(["green", "red"]);
+  var color = d3.scaleLinear().domain([0,5]).range(["grey", "red"]);
 // append the svg object to the body of the page
 export let studends_bar_chart_svg = d3.select("#students_bar_chart")
   .append("svg")

@@ -7,10 +7,10 @@ var margin = {
     bottom: 90,
     left: 40
   },
-  width = 230 - margin.left - margin.right,
-  height = 220 - margin.top - margin.bottom;
+  width = 330 - margin.left - margin.right,
+  height = 330 - margin.top - margin.bottom;
 
-var color = d3.scaleLinear().domain([1,4]).range(["green", "blue"]);
+var color = d3.scaleLinear().domain([0,1]).range(["green", "red"]);
 // append the svg object to the body of the questions_bar_chart
 export let questions_bar_chart_svg = d3.select("#questions_bar_chart")
   .append("svg")
@@ -58,6 +58,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
     .selectAll("text")
+    .attr("font-size", "20px")
     .attr("transform", "translate(-10,0)rotate(-45)")
     .style("text-anchor", "end");
 
