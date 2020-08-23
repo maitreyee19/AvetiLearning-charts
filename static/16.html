@@ -382,7 +382,8 @@
              * Fetch User details from the local storage
              * */
             var studentDetail = JSON.parse(localStorage.getItem('standaloneUserDetails'));
-            var studentName = studentDetail["name"]
+            var studentName = studentDetail["name"];
+            var studentNumber = studentDetail["mobile"];
             /**
              * By: Maitreyee
              * Trigger websocket event with the eventStatus, questionid , student answer , student name and points.
@@ -391,7 +392,8 @@
                 "status": 1,
                 "questionID": activeQ,
                 "answer": result.correct? "correct" :"wrong",
-                "student": studentName,
+                "Name": studentName,
+                "Ph" : studentNumber,
                 "points": result.correct?10 :0
             });
             $('.perseus-input').val('');

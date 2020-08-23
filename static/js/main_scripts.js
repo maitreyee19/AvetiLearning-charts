@@ -68,8 +68,10 @@ $("#aveti_deactivate_question").click(function () {
   fetch('/qna/get_question_student_data')
   .then(response => response.json())
   .then(data => {
-    console.log('send student data to db ');
-    console.log(data);
+    fetch('http://odia.shikhya.org/RealTimeQuiz/receive_question_response/', {
+      method: 'post',
+      body: JSON.stringify(data)
+    })
   })
 })
 $("#aveti_next_question").click(function () {

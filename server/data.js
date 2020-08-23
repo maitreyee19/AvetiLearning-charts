@@ -76,13 +76,13 @@ exports.update_student_data = function (eventData) {
     }
     active_question_student_data.students.push(eventData)
     var student = student_data.find(function (student) {
-        return student.name === eventData.student;
+        return student.name === eventData.Name;
     })
     if (student) {
         student.points = student.points + eventData.points;
     } else {
         student_data.push({
-            "name": eventData.student,
+            "name": eventData.Name,
             "points": eventData.points
         })
     }
