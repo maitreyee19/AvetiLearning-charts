@@ -44,11 +44,13 @@ wss.on('connection', (socket) => {
     }); 
     socket.on('qevent', (eventData) =>{
         console.log("eventData" + JSON.stringify(eventData))
+        if (eventData.status == 2) {
+            dataService.activate_question(eventData.questionID);
+        }
         socket.broadcast.emit('qevent',eventData);
     })
     socket.on('aevent', (eventData) =>{
         console.log("eventData" + JSON.stringify(eventData));
-
         dataService.update_student_data(eventData);
     })
     socket.on('disconnect', () => {

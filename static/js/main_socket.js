@@ -15,7 +15,7 @@
 // transports: ['websocket']
 // });
 
-var socket = io.connect('https://maitreyeedas.website/', {
+var socket = io.connect('http://localhost:3000/', {
 
     reconnect: true,
     transports: ['websocket']
