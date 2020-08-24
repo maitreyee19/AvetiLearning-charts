@@ -17,8 +17,9 @@
     <div class="aveti_q_container">
         <div class="aveti_q_header">
             <!--<h3>Question No: 2</h3>-->
-            <!--Question URL :<input class="aveti_q_url" style="width: 60%;" type="text" />-->
-            <button class="aveti_q_loadUrl">reset session</button>
+            <input class="aveti_q_url" style="width: 60%;" type="text" placeholder="session_id"/>
+            <button id="aveti_q_set_session">Set Session</button>
+            <button id="aveti_q_finish_session">Finish session</button>
         </div>
         <!-- Create a div where the graph will take place -->
         <div class="aveti_q_body">
@@ -40,12 +41,12 @@
                 </div>
                 <div class="aveti_q_actions">
                     <input id="aveit_input_q" type="text" />
-                    <button id="aveti_next_question">Question</button>
+                    <button id="aveti_next_question" disabled>Question</button>
                 </div>
                 <div class="aveti_q_actions">
-                    <button id="aveti_ready_question">Question Ready</button>
-                    <button id="aveti_activate_question">Activate Question</button>
-                    <button id="aveti_deactivate_question">Deactivate Question</button>
+                    <button id="aveti_ready_question" disabled>Question Ready</button>
+                    <button id="aveti_activate_question" disabled>Activate Question</button>
+                    <button id="aveti_deactivate_question" disabled>Deactivate Question</button>
                 </div>
 
             </div>

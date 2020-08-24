@@ -11,6 +11,7 @@ import {
   studends_bar_chart_svg
 } from './h_bar_chart.js'
 
+var session_id = "";
 var nextQid = "";
 var question_active = false;
 var socket = io({
@@ -33,6 +34,29 @@ $('#aveti_ready_question').click(function () {
   });
 })
 
+$("#aveti_q_set_session").click(function () {
+
+  session_id = $(".aveti_q_url").val();
+  $("#aveti_next_question").prop('disabled', false);
+  $("#aveti_ready_question").prop('disabled', false)
+  $("#aveti_activate_question").prop('disabled', false)
+  $("#aveti_deactivate_question").prop('disabled', false)
+})
+
+$("#aveti_q_finish_session").click(function () {
+  fetch('http://odia.shikhya.org/RealTimeQuiz/real_time_summary_response?real_time_quiz_id=' + session_id)
+    .then(response => response.json())
+    .then(response => {
+      var json = response.data.students;
+      var csv = "";
+      var keys = (json[0] && Object.keys(json[0])) || [];
+      csv += keys.join(',') + '\n';
+      for (var line of json) {
+        csv += '"' + keys.map(key => line[key]).join('","') + '"\n';
+      }
+      download("session_"+session_id + "summary.csv" , csv );
+    })
+})
 
 $("#aveti_activate_question").click(function () {
   question_active = true;
@@ -49,7 +73,6 @@ $("#aveti_activate_question").click(function () {
 })
 
 $(".aveti_q_loadUrl").click(function () {
-
   fetch('/qna/reset_data')
     .then(response => response.json())
     .then(data => {
@@ -66,13 +89,16 @@ $("#aveti_deactivate_question").click(function () {
   });
   start_student_status_chart();
   fetch('/qna/get_question_student_data')
-  .then(response => response.json())
-  .then(data => {
-    fetch('http://odia.shikhya.org/RealTimeQuiz/receive_question_response/', {
-      method: 'post',
-      body: JSON.stringify(data)
+    .then(response => response.json())
+    .then(data => {
+      fetch('http://odia.shikhya.org/RealTimeQuiz/receive_question_response/', {
+        method: 'post',
+        body: JSON.stringify({
+          "answer_json": data,
+          "real_time_quiz_id": session_id
+        })
+      })
     })
-  })
 })
 $("#aveti_next_question").click(function () {
   fetch('/qna/reset_question_data')
@@ -140,3 +166,20 @@ var start_student_status_chart = function () {
 // start_student_status_chart()
 // start_question_status_chart()
 // drawPieChart();
+
+
+function download(filename, text) {
+  var pom = document.createElement('a');
+  pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+  pom.setAttribute('download', filename);
+
+  if (document.createEvent) {
+      var event = document.createEvent('MouseEvents');
+      event.initEvent('click', true, true);
+      pom.dispatchEvent(event);
+  }
+  else {
+      pom.click();
+  }
+}
+
