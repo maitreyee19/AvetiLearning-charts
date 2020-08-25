@@ -1,6 +1,7 @@
 import {
   drawBarChart,
   update_bar_chart,
+  update_bar_chart_label,
   questions_bar_chart_svg,
   recreate_questions_barchart
 } from './bar_chart.js';
@@ -125,7 +126,7 @@ var start_question_status_chart = function () {
         // console.log(" data = " + data);
         if (x == 0) drawBarChart(questions_bar_chart_svg, data);
         else {
-          update_bar_chart(questions_bar_chart_svg, data)
+          update_bar_chart_label(questions_bar_chart_svg, data)
         };
         if (++x >= 600 || question_active == false) {
           window.clearInterval(intervalID);

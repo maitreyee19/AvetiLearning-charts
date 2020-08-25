@@ -10,7 +10,7 @@ var margin = {
   width = 330 - margin.left - margin.right,
   height = 330 - margin.top - margin.bottom;
 
-var color = d3.scaleLinear().domain([0,1]).range(["green", "red"]);
+var color = d3.scaleLinear().domain([0, 1]).range(["green", "red"]);
 // append the svg object to the body of the questions_bar_chart
 export let questions_bar_chart_svg = d3.select("#questions_bar_chart")
   .append("svg")
@@ -40,7 +40,7 @@ export let recreate_questions_barchart = function () {
  * @param {*} questions_bar_chart_svg 
  * @param {*} data 
  */
-export let drawBarChart = function (questions_bar_chart_svg ,data) {
+export let drawBarChart = function (questions_bar_chart_svg, data) {
   // X axis
   var x = d3.scaleBand()
     .range([0, width])
@@ -63,6 +63,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
     .style("text-anchor", "end");
 
   questions_bar_chart_svg.append("g")
+    .attr("class", "yaxis")
     .call(d3.axisLeft(y));
 
   // Bars
@@ -74,7 +75,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
       return x(d.Answer);
     })
     .attr("width", x.bandwidth())
-    .attr("fill", function(d, i) {
+    .attr("fill", function (d, i) {
       return color(i);
     })
     // no bar at the beginning thus:
@@ -95,7 +96,6 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
       return height - y(d.Value);
     })
     .delay(function (d, i) {
-      // console.log(i);
       return (i * 100)
     })
 
@@ -107,7 +107,7 @@ export let drawBarChart = function (questions_bar_chart_svg ,data) {
  * @param {*} questions_bar_chart_svg 
  * @param {*} data 
  */
-export let update_bar_chart = function (questions_bar_chart_svg ,data) {
+export let update_bar_chart = function (questions_bar_chart_svg, data) {
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([0, 10])
@@ -136,11 +136,20 @@ export let update_bar_chart = function (questions_bar_chart_svg ,data) {
  * @param {*} questions_bar_chart_svg 
  * @param {*} data 
  */
-export let update_bar_label = function (questions_bar_chart_svg ,data) {
+export let update_bar_chart_label = function (questions_bar_chart_svg, data) {
+  var max = 0;
+  for (var idata = 0; idata < data.length; idata++) {
+    if (data[idata].Value > max) max = data[idata].Value;
+  }
+  var maxHeight = ((max / 10) + 1) * 10;
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([0, 100])
+    .domain([0, maxHeight])
     .range([height, 0]);
+
+  questions_bar_chart_svg.select(".yaxis")
+    .transition().duration(800)
+    .call(d3.axisLeft(y));
 
   // Animation
   questions_bar_chart_svg.selectAll("rect")

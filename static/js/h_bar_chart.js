@@ -5,7 +5,7 @@ var margin = {
     top: 10,
     right: 30,
     bottom: 10,
-    left: 60
+    left: 100
   },
   width = 350 - margin.left - margin.right,
   height = 300 - margin.top - margin.bottom;
