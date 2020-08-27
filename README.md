@@ -82,12 +82,26 @@ Setup is completed.
 
 Now Go to https://~your_site~.com and you should see the administrator page... 
 
+
+### Managing Node service using PM2
+
+Use PM2 to start , monitor and auto restart if node server fails
+```
+ npm install pm2 -g
+ cd ~/QnA/AvetiLearning-charts
+ pm2 start server.js
+ pm2 list
+```
+
 ### how to restart server after deploying new changes
 
 ```
- npm restart 0
-
+ cd ~/QnA/AvetiLearning-charts
+ git pull   //pull latest code 
+ npm install  //install the requirements
+ npm start // start the node server using Node 
+ -- or --
+ pm2 restart 0
 ```
-
 
 
