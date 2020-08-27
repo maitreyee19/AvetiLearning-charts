@@ -63,6 +63,7 @@ Make sure you can access "ec2url:3000"
     sudo apt-get install apache2
     cd /etc/apache2/sites-available/
     cp ~/QnA/AvetiLearning-charts/website.com.conf ~your_site~.conf
+    sudo a2ensite ~your_site~.conf 
 ```
 
 ### setup certificate and ssl using letsencrypt
@@ -80,5 +81,13 @@ Make sure you can access "ec2url:3000"
 Setup is completed.
 
 Now Go to https://~your_site~.com and you should see the administrator page... 
+
+### how to restart server after deploying new changes
+
+```
+ npm restart 0
+
+```
+
 
 
