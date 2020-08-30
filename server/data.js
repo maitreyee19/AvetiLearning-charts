@@ -71,7 +71,7 @@ exports.get_student_status = function () {
     student_data.sort(function (a, b) {
         return b - a;
     })
-    return (student_data.slice(0, 5))
+    return (student_data.slice(0, 10))
 }
 
 /**
