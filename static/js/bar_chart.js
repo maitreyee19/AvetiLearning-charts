@@ -102,33 +102,33 @@ export let drawBarChart = function (questions_bar_chart_svg, data) {
 }
 
 
-/**
- * Update the bar chart based on the svg and the new data with animation
- * @param {*} questions_bar_chart_svg 
- * @param {*} data 
- */
-export let update_bar_chart = function (questions_bar_chart_svg, data) {
-  // Add Y axis
-  var y = d3.scaleLinear()
-    .domain([0, 10])
-    .range([height, 0]);
+// /**
+//  * Update the bar chart based on the svg and the new data with animation
+//  * @param {*} questions_bar_chart_svg 
+//  * @param {*} data 
+//  */
+// export let update_bar_chart = function (questions_bar_chart_svg, data) {
+//   // Add Y axis
+//   var y = d3.scaleLinear()
+//     .domain([0, 10])
+//     .range([height, 0]);
 
-  // Animation
-  questions_bar_chart_svg.selectAll("rect")
-    .data(data)
-    .transition()
-    .duration(800)
-    .attr("y", function (d) {
-      return y(d.Value);
-    })
-    .attr("height", function (d) {
-      return height - y(d.Value);
-    })
-    .delay(function (d, i) {
-      console.log(i);
-      return (i * 100)
-    })
-}
+//   // Animation
+//   questions_bar_chart_svg.selectAll("rect")
+//     .data(data)
+//     .transition()
+//     .duration(800)
+//     .attr("y", function (d) {
+//       return y(d.Value);
+//     })
+//     .attr("height", function (d) {
+//       return height - y(d.Value);
+//     })
+//     .delay(function (d, i) {
+//       console.log(i);
+//       return (i * 100)
+//     })
+// }
 
 
 /**

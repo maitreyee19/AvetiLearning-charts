@@ -3,12 +3,13 @@ const http = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const dataService = require('./server/data.js');
-// const WebSocket = require('ws');
+
 
 // Get our API routes
 const api = require('./server/routes/api');
 const app = express();
 const server = http.Server(app);
+
 //initialize the WebSocket server instance
 // const wss = new WebSocket.Server({ server });
 const wss = require('socket.io')(server);
@@ -56,7 +57,8 @@ wss.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
       });
-});
+})
+
 
 app.on('error', function (error, req, res) {
     console.log('proxy error\n' + error.toString());
