@@ -20,28 +20,50 @@
 .aveti_q_status {
     flex-grow: 2;
 }
-.aveti_q_enabler{
+
+.aveti_q_enabler {
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
 }
-.aveti_q_details{
+
+.aveti_q_details {
     flex-grow: 9;
 }
 
-.aveti_q_status_notactive{
-    min-height:650px;
+.aveti_q_status_notactive {
+    min-height: 650px;
     min-width: 250px;
     display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
 }
 
-.aveti_q_charts{
+.aveti_q_charts {
     justify-content: center;
     padding-left: 50px;
 }
 
-.aveti_q_iframe{
+.aveti_q_iframe {
     height: 90%;
     border-width: 0;
+}
+
+.aveti_session_id,
+.aveti_no_questions {
+    height: 100%;
+    width: 20%;
+}
+
+Button {
+    width: 7rem;
+    height: 2rem;
+    border-radius: 5px;
+}
+
+#aveti_start_session:hover {
+    background-color: aqua;
+}
+
+#aveti_finish_session:hover {
+    background-color: red;
 }

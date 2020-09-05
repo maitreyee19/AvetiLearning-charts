@@ -94,6 +94,13 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
       return (i * 100)
     })
 
+
+    questions_bar_chart_svg.append("text")
+    .attr("class" , "value")
+    .text(function(d){
+      return d.points;
+    })
+
 }
 
 
