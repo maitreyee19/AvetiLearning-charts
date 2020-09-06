@@ -33,30 +33,21 @@
             </div>
 
             <div class="aveti_q_enabler">
-                <div class="aveti_q_details">
-                    <p style="text-align: center;">Questions</p>
-                    <div class="aveti_active" id="question_active">
-                        <iframe class="aveti_q_iframe" src="" title="question"></iframe></div>
-                </div>
-
-                <!-- <input id="aveit_input_q" type="text" /> -->
-                <div id="app-4">
-                    <ol>
+                <div id="Aveti-App">
+                    <div class="aveti_q_details">
+                        <p style="text-align: center;">Questions</p>
+                    </div>
+                    <ul>
                         <li v-for="question in questions">
-                            <!-- {{ todo.text }} -->
                             <div id="aveti_q_actions" :data-qid="question.qid">
-                                <button v-on:click="reverseMessage(question.qid)" id="aveti_set_question" disabled>Set Question</button>
-                                <button id="aveti_ready_question" disabled>Ready</button>
-                                <button id="aveti_activate_question" disabled>Activate</button>
-                                <button id="aveti_deactivate_question" disabled>Deactivate</button>
+                                <button v-on:click="setQuestion(question)" id="aveti_set_question" :disabled="!isSessionActive">Q{{question.qid}}</button>
+                                <button v-on:click="readyQuestion(question)" id="aveti_ready_question" :disabled="!question.isSelected">Ready</button>
+                                <button v-on:click="activateQuestion(question)" id="aveti_activate_question" :disabled="!question.isReady">Activate</button>
+                                <button v-on:click="deactivateQuestion(question)" id="aveti_deactivate_question" :disabled="!question.isActive">Deactivate</button>
                             </div>
                         </li>
-                    </ol>
+                    </ul>
                 </div>
-                <!-- <button id="aveti_set_question" disabled>Set Question</button>
-                    <button id="aveti_ready_question" disabled>Ready</button>
-                    <button id="aveti_activate_question" disabled>Activate</button>
-                    <button id="aveti_deactivate_question" disabled>Deactivate</button> -->
 
 
             </div>

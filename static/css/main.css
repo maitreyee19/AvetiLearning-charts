@@ -26,10 +26,6 @@
     flex-direction: column;
 }
 
-.aveti_q_details {
-    flex-grow: 9;
-}
-
 .aveti_q_status_notactive {
     min-height: 650px;
     min-width: 250px;
@@ -60,10 +56,24 @@ Button {
     border-radius: 5px;
 }
 
-#aveti_start_session:hover {
+button:hover {
     background-color: aqua;
+}
+
+button:disabled,
+button[disabled] {
+    background-color: ghostwhite
+}
+
+button:disabled:hover,
+button[disabled]:hover {
+    background-color: ghostwhite
 }
 
 #aveti_finish_session:hover {
     background-color: red;
+}
+
+#aveti_q_actions {
+    padding-top: 10px;
 }

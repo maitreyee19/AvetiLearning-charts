@@ -1,4 +1,3 @@
-
 /**
  * By: Maitreyee
  * Sudent websocket listens to "qevents" and publishes "aevents"
@@ -10,23 +9,23 @@
  * 
  */
 
-var socket = io.connect('https://bhabanidas.com', {
-reconnect: true,
-transports: ['websocket']
+// var socket = io.connect('https://bhabanidas.com', {
+// reconnect: true,
+// transports: ['websocket']
+// });
+
+var socket = io.connect('http://localhost:3000/', {
+    reconnect: true,
+    transports: ['websocket']
 });
 
-// var socket = io.connect('http://localhost:3000/', {
-
-//     reconnect: true,
-//     transports: ['websocket']
-// });
-socket.on('connect', function () {
+socket.on('connect', function() {
     console.log
     socket.emit('event1', {
         data: 'I\'m connected!'
     });
 });
-socket.addEventListener('qevent', function (event) {
+socket.addEventListener('qevent', function(event) {
     console.log('Event from server ', event);
     if (event.status == 1) {
         activeQ = event.questionID;
@@ -49,4 +48,3 @@ socket.addEventListener('qevent', function (event) {
         $('#problem-and-answer').hide();
     }
 });
-

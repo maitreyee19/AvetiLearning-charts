@@ -15,47 +15,9 @@ socket.on('connect', function() {
     });
 });
 
-/**
- * Click event listeners
- */
-$('#aveti_set_question').click(function() {
-    nextQid = $('#aveti_q_actions').data('qid');
-    console.log("question id set to " + nextQid);
-    // nextQid = $('#aveit_input_q').val()
-})
-$('#aveti_ready_question').click(function() {
-    socket.emit('qevent', {
-        "status": 1,
-        "questionID": nextQid,
-        "answer": ""
-    });
-})
 
-$("#aveti_start_session").click(function() {
-    session_id = $(".aveti_session_id").val();
-    question_count = $(".aveti_no_questions").val();
-    $("#aveti_set_question").prop('disabled', false);
-    $("#aveti_ready_question").prop('disabled', false)
-    $("#aveti_activate_question").prop('disabled', false)
-    $("#aveti_deactivate_question").prop('disabled', false)
-})
 
-$("#aveti_finish_session").click(function() {
-    fetch('/qna/session_status?real_time_quiz_id=' + session_id)
-        .then(response => response.json())
-        .then(response => {
-            var json = response.data.students;
-            var csv = "";
-            var keys = (json[0] && Object.keys(json[0])) || [];
-            csv += keys.join(',') + '\n';
-            for (var line of json) {
-                csv += '"' + keys.map(key => line[key]).join('","') + '"\n';
-            }
-            download("session_" + session_id + "summary.csv", csv);
-        })
-})
-
-$("#aveti_activate_question").click(function() {
+let activate_question = function() {
     question_active = true;
     socket.emit('qevent', {
         "status": 2,
@@ -67,19 +29,18 @@ $("#aveti_activate_question").click(function() {
     recreate_questions_barchart();
     recreate_students_barchart();
     start_question_status_chart();
-})
+}
 
-$(".aveti_q_loadUrl").click(function() {
+let reset_data = function() {
     fetch('/qna/reset_data')
         .then(response => response.json())
         .then(data => {
             start_question_status_chart();
             start_student_status_chart();
         })
+}
 
-})
-
-$("#aveti_deactivate_question").click(function() {
+let deactivate_question = function() {
     question_active = false;
     socket.emit('qevent', {
         "status": 3,
@@ -99,8 +60,41 @@ $("#aveti_deactivate_question").click(function() {
                 })
             })
         })
+}
+
+/**
+ * Click event listeners
+ */
+$("#aveti_start_session").click(function() {
+    console.log(" is Session Active" + AvetiApp.isSessionActive);
+    AvetiApp.isSessionActive = true;
+    console.log(" is Session Active" + AvetiApp.isSessionActive);
+    session_id = $(".aveti_session_id").val();
+    question_count = $(".aveti_no_questions").val();
+    // $("#aveti_set_question").prop('disabled', false);
+    // $("#aveti_ready_question").prop('disabled', false)
+    // $("#aveti_activate_question").prop('disabled', false)
+    // $("#aveti_deactivate_question").prop('disabled', false)
 })
-$("#aveti_set_question").click(function() {
+
+$("#aveti_finish_session").click(function() {
+    fetch('/qna/session_status?real_time_quiz_id=' + session_id)
+        .then(response => response.json())
+        .then(response => {
+            var json = response.data.students;
+            var csv = "";
+            var keys = (json[0] && Object.keys(json[0])) || [];
+            csv += keys.join(',') + '\n';
+            for (var line of json) {
+                csv += '"' + keys.map(key => line[key]).join('","') + '"\n';
+            }
+            download("session_" + session_id + "summary.csv", csv);
+        })
+})
+$('#aveti_set_question').click(function() {
+    nextQid = $('#aveti_q_actions').data('qid');
+    console.log("question id set to " + nextQid);
+    // nextQid = $('#aveit_input_q').val();
     fetch('/qna/reset_question_data')
         .then(response => response.json())
         .then(data => {
@@ -110,6 +104,18 @@ $("#aveti_set_question").click(function() {
         "status": 4
     });
 })
+$('#aveti_ready_question').click(function() {
+    socket.emit('qevent', {
+        "status": 1,
+        "questionID": nextQid,
+        "answer": ""
+    });
+})
+
+
+$("#aveti_activate_question").click(activate_question);
+$(".aveti_q_loadUrl").click(reset_data);
+$("#aveti_deactivate_question").click(deactivate_question);
 
 
 /*************  required functions for event handlers */
@@ -180,21 +186,57 @@ function download(filename, text) {
     }
 }
 
+class Question {
+    constructor(qid) {
+        this.qid = qid;
+        this.isSelected = false;
+        this.isActive = false;
+        this.isReady = false;
+    }
+}
 
-var app4 = new Vue({
-    el: '#app-4',
+var AvetiApp = new Vue({
+    el: '#Aveti-App',
     data: {
+        isSessionActive: false,
         questions: [
-            { qid: 1 },
-            { qid: 2 },
-            { qid: 3 }
+            { qid: 1, isSelected: false, isReady: false, isActive: false },
+            { qid: 2, isSelected: false, isReady: false, isActive: false },
+            { qid: 3, isSelected: false, isReady: false, isActive: false }
         ]
     },
     methods: {
-        reverseMessage: function(qid) {
-            console.log("method called");
-            nextQid = qid;
+        setQuestion: function(question) {
+            nextQid = question.qid;
             console.log("question id set to " + nextQid);
+            question.isSelected = true;
+            fetch('/qna/reset_question_data')
+                .then(response => response.json())
+                .then(data => {
+                    drawBarChart(questions_bar_chart_svg, []);
+                })
+            socket.emit('qevent', {
+                "status": 4
+            });
+        },
+        readyQuestion: function(question) {
+            question.isReady = true;
+            socket.emit('qevent', {
+                "status": 1,
+                "questionID": nextQid,
+                "answer": ""
+            });
+        },
+        activateQuestion: function(question) {
+            question.isActive = true;
+            activate_question();
+        },
+        deactivateQuestion: function(question) {
+            question.isActive = false;
+            question.isReady = false;
+            question.isSelected = false;
+            deactivate_question();
         }
+
     }
 })
