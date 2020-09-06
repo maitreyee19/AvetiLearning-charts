@@ -74,6 +74,10 @@ button[disabled]:hover {
     background-color: red;
 }
 
+#aveti_finish_session:disabled:hover {
+    background-color: ghostwhite;
+}
+
 #aveti_q_actions {
     padding-top: 10px;
 }

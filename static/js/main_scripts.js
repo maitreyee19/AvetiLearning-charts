@@ -66,11 +66,16 @@ let deactivate_question = function() {
  * Click event listeners
  */
 $("#aveti_start_session").click(function() {
-    console.log(" is Session Active" + AvetiApp.isSessionActive);
-    AvetiApp.isSessionActive = true;
-    console.log(" is Session Active" + AvetiApp.isSessionActive);
+
     session_id = $(".aveti_session_id").val();
     question_count = $(".aveti_no_questions").val();
+    if (session_id === undefined || session_id === "" || question_count === undefined || question_count === 0) return;
+    AvetiApp.questions = [];
+    AvetiApp.isSessionActive = true;
+    for (let iQst = 0; iQst < question_count; iQst++) {
+        AvetiApp.questions.push(new Question(iQst));
+    }
+    $("#aveti_finish_session").prop('disabled', false);
     // $("#aveti_set_question").prop('disabled', false);
     // $("#aveti_ready_question").prop('disabled', false)
     // $("#aveti_activate_question").prop('disabled', false)
@@ -200,9 +205,9 @@ var AvetiApp = new Vue({
     data: {
         isSessionActive: false,
         questions: [
-            { qid: 1, isSelected: false, isReady: false, isActive: false },
-            { qid: 2, isSelected: false, isReady: false, isActive: false },
-            { qid: 3, isSelected: false, isReady: false, isActive: false }
+            { qid: 0, isSelected: false, isReady: false, isActive: false },
+            // { qid: 2, isSelected: false, isReady: false, isActive: false },
+            // { qid: 3, isSelected: false, isReady: false, isActive: false }
         ]
     },
     methods: {
