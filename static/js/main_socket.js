@@ -9,15 +9,15 @@
  * 
  */
 
-// var socket = io.connect('https://bhabanidas.com', {
-// reconnect: true,
-// transports: ['websocket']
-// });
-
-var socket = io.connect('http://localhost:3000/', {
-    reconnect: true,
-    transports: ['websocket']
+var socket = io.connect('https://bhabanidas.com', {
+reconnect: true,
+transports: ['websocket']
 });
+
+// var socket = io.connect('http://localhost:3000/', {
+//     reconnect: true,
+//     transports: ['websocket']
+// });
 
 socket.on('connect', function() {
     console.log
