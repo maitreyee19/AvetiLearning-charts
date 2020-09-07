@@ -95,11 +95,11 @@ export let draw_h_bar_chart = function (questions_bar_chart_svg ,data) {
     })
 
 
-    questions_bar_chart_svg.append("text")
-    .attr("class" , "value")
-    .text(function(d){
-      return d.points;
-    })
+    // questions_bar_chart_svg.append("text")
+    // .attr("class" , "value")
+    // .text(function(d){
+    //   return d.points;
+    // })
 
 }
 

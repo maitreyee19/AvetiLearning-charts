@@ -1,5 +1,14 @@
-import { drawBarChart, update_bar_chart_label, questions_bar_chart_svg, recreate_questions_barchart } from './bar_chart.js';
-import { draw_h_bar_chart, recreate_students_barchart, studends_bar_chart_svg } from './h_bar_chart.js'
+import {
+    drawBarChart,
+    update_bar_chart_label,
+    questions_bar_chart_svg,
+    recreate_questions_barchart
+} from './bar_chart.js';
+import {
+    draw_h_bar_chart,
+    recreate_students_barchart,
+    studends_bar_chart_svg
+} from './h_bar_chart.js'
 
 var session_id = "",
     question_count = 0,
@@ -9,15 +18,17 @@ var session_id = "",
 var socket = io({
     transports: ['websocket']
 });
-socket.on('connect', function() {
+socket.on('connect', function () {
     socket.emit('event1', {
         data: 'I\'m connected!'
     });
 });
 
+let login = function () {
+    console.log("login");
+}
 
-
-let activate_question = function() {
+let activate_question = function () {
     question_active = true;
     socket.emit('qevent', {
         "status": 2,
@@ -31,7 +42,7 @@ let activate_question = function() {
     start_question_status_chart();
 }
 
-let reset_data = function() {
+let reset_data = function () {
     fetch('/qna/reset_data')
         .then(response => response.json())
         .then(data => {
@@ -40,7 +51,7 @@ let reset_data = function() {
         })
 }
 
-let deactivate_question = function() {
+let deactivate_question = function () {
     question_active = false;
     socket.emit('qevent', {
         "status": 3,
@@ -63,16 +74,28 @@ let deactivate_question = function() {
 }
 
 /**
- * Click event listeners
+ * query event listeners
  */
-$("#aveti_start_session").click(function() {
 
+$('#loginButton').click(function (event) {
+    console.log("login");
+    var uname = $('#uname').val();
+    var psw = $('#psw').val();
+    if (uname == "admin" && psw == 'aveti-admin') {
+        $('#aveti_admin_login').hide();
+        $('.aveti_q_container').show();
+    } else {
+        alert(" Wrong usename password")
+    }
+})
+
+$("#aveti_start_session").click(function () {
     session_id = $(".aveti_session_id").val();
     question_count = $(".aveti_no_questions").val();
-    if (session_id === undefined || session_id === "" || question_count === undefined || question_count === "" || question_count < 1){
+    if (session_id === undefined || session_id === "" || question_count === undefined || question_count === "" || question_count < 1) {
         alert("Please fillout both \"session id\" and \"number of questions\" to start the session");
         return;
-    } 
+    }
     AvetiApp.questions = [];
     AvetiApp.isSessionActive = true;
     for (let iQst = 0; iQst < question_count; iQst++) {
@@ -81,7 +104,7 @@ $("#aveti_start_session").click(function() {
     $("#aveti_finish_session").prop('disabled', false);
 })
 
-$("#aveti_finish_session").click(function() {
+$("#aveti_finish_session").click(function () {
     fetch('/qna/session_status?real_time_quiz_id=' + session_id)
         .then(response => response.json())
         .then(response => {
@@ -101,9 +124,9 @@ $("#aveti_finish_session").click(function() {
 /**
  * Start the question chart and redraw every 1 sec
  */
-var start_question_status_chart = function() {
+var start_question_status_chart = function () {
     var x = 0;
-    var intervalID = setInterval(function() {
+    var intervalID = setInterval(function () {
         fetch('/qna/get_question_stats')
             .then(response => response.json())
             .then(data => {
@@ -127,7 +150,7 @@ var start_question_status_chart = function() {
 /**
  * Generate the Student board chart
  */
-var start_student_status_chart = function() {
+var start_student_status_chart = function () {
     var x = 0;
     fetch('/qna/get_student_stats')
         .then(response => response.json())
@@ -172,7 +195,7 @@ class Question {
         this.isActive = false;
         this.isReady = false;
     }
-    reset(){
+    reset() {
         this.isSelected = false;
         this.isActive = false;
         this.isReady = false;
@@ -183,12 +206,15 @@ var AvetiApp = new Vue({
     el: '#Aveti-App',
     data: {
         isSessionActive: false,
-        questions: [
-            { qid: 0, isSelected: false, isReady: false, isActive: false }
-        ]
+        questions: [{
+            qid: 0,
+            isSelected: false,
+            isReady: false,
+            isActive: false
+        }]
     },
     methods: {
-        setQuestion: function(question) {
+        setQuestion: function (question) {
             this.questions.forEach(element => {
                 element.reset();
             });
@@ -204,7 +230,8 @@ var AvetiApp = new Vue({
                 "status": 4
             });
         },
-        readyQuestion: function(question) {
+        readyQuestion: function (question) {
+            question.isSelected = false;
             question.isReady = true;
             socket.emit('qevent', {
                 "status": 1,
@@ -212,11 +239,12 @@ var AvetiApp = new Vue({
                 "answer": ""
             });
         },
-        activateQuestion: function(question) {
+        activateQuestion: function (question) {
+            question.isReady = false;
             question.isActive = true;
             activate_question();
         },
-        deactivateQuestion: function(question) {
+        deactivateQuestion: function (question) {
             question.isActive = false;
             question.isReady = false;
             question.isSelected = false;
