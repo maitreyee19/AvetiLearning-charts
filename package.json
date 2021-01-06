@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/maitreyee19/AvetiLearning-charts#readme",
   "dependencies": {
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "custom-env": "^2.0.1",
     "express": "^4.17.1",
     "http-proxy": "^1.18.1",
